@@ -29,7 +29,7 @@ function acceptParams(mock, r) {
   const mockParams = mock.httpRequest.queryStringParameters;
   const params = {};
   for (const key in mockParams) {
-    params[`$params.${key}`] = r.body[key];
+    params[`$params.${key}`] = r.query[key];
   }
   return params;
 }
@@ -67,7 +67,7 @@ function execBadRequest(w) {
 }
 
 exports.index = async function index(r, w, n) {
-  const originalUrl = r.originalUrl;
+  const originalUrl = r.originalUrl.split('?')[0];
   const methodUsed = r.method.toUpperCase();
   const mustMock = config.find(
     (d) =>
