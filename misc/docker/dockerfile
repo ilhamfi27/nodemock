@@ -1,0 +1,19 @@
+#################
+# Builder Image #
+#################
+FROM node:16.16.0-alpine
+
+# install build-tools
+RUN apk update &&\
+    apk add --no-cache build-base git python3 bash
+
+WORKDIR /src/app
+
+COPY . .
+
+RUN npm install -g npm@latest
+RUN yarn install
+
+VOLUME [ "/mock" ]
+
+CMD [ "node /src/app/src/bin/www" ]
