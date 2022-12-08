@@ -6,18 +6,13 @@ services:
   nodemock:
     restart: unless-stopped
     image: ${IMAGE_NAME}:${IMAGE_VERSION}
-    build: 
-      context: ../../
-      dockerfile: ./misc/docker/dockerfile
-    working_dir: ${PWD}/../..
     volumes:
-      - ../../:${PWD}/../..
       - ./config.json:/app/mock/config.json
     env_file:
       - ./.env
-    command: bash -c "npm run dev"
     ports:
       - 3000:3000
+    command: bash -c "npm run start"
     networks:
       default:
 
